@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void getHomeCateList() {
         HttpUtils.getInstance(this)
-                .getRetofitClinet()
+                .getRetrofitClient()
                 .builder(HomeApi.class)
                 .getHomeCateList(ParamsMapUtils.getDefaultParams())
                 .compose(new DefaultTransformer<List<HomeCateList>>())  //预处理错误信息

@@ -3,12 +3,14 @@ package com.shouxiu.rxjavaretrofit.net.http;
 import android.content.Context;
 
 import com.shouxiu.rxjavaretrofit.net.config.NetWorkConfiguration;
+import com.shouxiu.rxjavaretrofit.net.cookie.SimpleCookieJar;
 import com.shouxiu.rxjavaretrofit.net.interceptor.LogInterceptor;
 import com.shouxiu.rxjavaretrofit.net.request.RetrofitClient;
 import com.shouxiu.rxjavaretrofit.utils.LogUtil;
 import com.shouxiu.rxjavaretrofit.utils.NetworkUtil;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.CacheControl;
@@ -16,6 +18,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * @author yeping
@@ -64,6 +67,64 @@ public class HttpUtils {
                     .build();
 
         }
+
+        /**
+         *
+         *  判断是否在AppLication中配置Https证书
+         *
+         */
+        if (configuration.getCertificates() != null) {
+            mOkHttpClient = getOkHttpClient().newBuilder()
+                    .sslSocketFactory(HttpsUtils.getSslSocketFactory(configuration.getCertificates(), null, null))
+                    .build();
+        }
+    }
+
+    /**
+     * 获得OkHttpClient实例
+     *
+     * @return
+     */
+    public OkHttpClient getOkHttpClient() {
+        return mOkHttpClient;
+    }
+
+    /**
+     * 设置HTTPS客户端带证书访问
+     *
+     * @param certificates 本地证书
+     */
+    public HttpUtils setCertificates(InputStream... certificates) {
+        mOkHttpClient = getOkHttpClient().newBuilder()
+                .sslSocketFactory(HttpsUtils.getSslSocketFactory(certificates, null, null))
+                .build();
+        return this;
+    }
+
+    /**
+     * 设置是否打印网络日志
+     *
+     * @param falg
+     */
+    public HttpUtils setDBugLog(boolean falg) {
+        if (falg) {
+            mOkHttpClient = getOkHttpClient().newBuilder()
+                    .addNetworkInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                    .build();
+        }
+        return this;
+    }
+
+    /**
+     * 设置Coolie
+     *
+     * @return
+     */
+    public HttpUtils addCookie() {
+        mOkHttpClient = getOkHttpClient().newBuilder()
+                .cookieJar(new SimpleCookieJar())
+                .build();
+        return this;
     }
 
     /**
@@ -91,7 +152,7 @@ public class HttpUtils {
         return this;
     }
 
-    public RetrofitClient getRetofitClinet() {
+    public RetrofitClient getRetrofitClient() {
 
         LogUtil.i("configuration:" + configuration.toString());
         return new RetrofitClient(configuration.getBaseUrl(), mOkHttpClient);
