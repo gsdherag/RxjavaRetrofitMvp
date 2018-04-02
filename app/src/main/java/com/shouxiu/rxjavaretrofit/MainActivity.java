@@ -2,7 +2,6 @@ package com.shouxiu.rxjavaretrofit;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shouxiu.rxjavaretrofit.api.HomeApi;
@@ -27,7 +26,24 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final TextView tv_home_info = findViewById(R.id.tv_home_info);
+//        mainTabBar.onRestoreInstanceState(savedInstanceState)
+//        mainTabBar.addTab(HomeFragment::class.java, NavigateTabBar.TabParam(R.drawable.home_pressed, R.drawable.home_selected, TAG_PAGE_HOME))
+//        mainTabBar.addTab(LiveFragment::class.java, NavigateTabBar.TabParam(R.drawable.live_pressed, R.drawable.live_selected, TAG_PAGE_LIVE))
+//        mainTabBar.addTab(VideoFragment::class.java, NavigateTabBar.TabParam(R.drawable.video_pressed, R.drawable.video_selected, TAG_PAGE_VIDEO))
+//        mainTabBar.addTab(FollowFragment::class.java, NavigateTabBar.TabParam(R.drawable.follow_pressed, R.drawable.follow_selected, TAG_PAGE_FOLLOW))
+//        mainTabBar.addTab(UserFragment::class.java, NavigateTabBar.TabParam(R.drawable.user_pressed, R.drawable.user_selected, TAG_PAGE_USER))
+//        mainTabBar.setTabSelectListener { holder ->
+//                when (holder.tag.toString()) {
+//            TAG_PAGE_HOME -> mainTabBar.showFragment(holder)
+//            TAG_PAGE_LIVE -> mainTabBar.showFragment(holder)
+//            TAG_PAGE_VIDEO -> mainTabBar.showFragment(holder)
+//            TAG_PAGE_FOLLOW -> mainTabBar.showFragment(holder)
+//            TAG_PAGE_USER -> if (mainTabBar != null) mainTabBar.showFragment(holder)
+//        }
+//        }
+    }
+
+    private void getHomeCateList() {
         HttpUtils.getInstance(this)
                 .getRetofitClinet()
                 .builder(HomeApi.class)
@@ -47,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onSuccess(List<HomeCateList> homeCateLists) {
                         String text = GsonUtil.object2Json(homeCateLists);
                         XCCacheManager.getInstance(MainActivity.this).writeCache(getHomeCateList, text);
-                        tv_home_info.setText(text);
                     }
 
                     @Override
