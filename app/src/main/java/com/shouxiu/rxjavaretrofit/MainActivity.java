@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final TextView tv_home_info = findViewById(R.id.tv_home_info);
-
         HttpUtils.getInstance(this)
                 .getRetofitClinet()
                 .builder(HomeApi.class)
@@ -56,6 +55,5 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, t.getErrorMsg(), Toast.LENGTH_SHORT).show();
                     }
                 });
-
     }
 }
