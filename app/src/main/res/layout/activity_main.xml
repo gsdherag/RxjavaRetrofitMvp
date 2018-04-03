@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/mainTabBar"/>
 
-    <com.shouxiu.bear.view.NavigateTabBar
+    <com.shouxiu.rxjavaretrofit.ui.NavigateTabBar
         android:id="@+id/mainTabBar"
         android:layout_width="match_parent"
         android:layout_height="50.0dip"
