@@ -76,7 +76,15 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V
                              Bundle savedInstanceState) {
         View ll = inflater.inflate(R.layout.fragment_base, null);
         mContainer = (RelativeLayout) ll.findViewById(R.id.rl_content_part);
-        rootView = (ViewGroup) inflater.inflate(getLayoutId(), null, false);
+        if (rootView == null) {
+            rootView = (ViewGroup) inflater.inflate(getLayoutId(), null, false);
+            initView(rootView);
+        } else {
+            ViewGroup parent = ((ViewGroup) rootView.getParent());
+            if (parent != null) {
+                parent.removeView(rootView);
+            }
+        }
         mContainer.addView(rootView);
         unbinder = ButterKnife.bind(this, rootView);
         return ll;
@@ -166,7 +174,6 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V
         this.presenter.attachView(this.view);
 
         if (getUserVisibleHint() && !hasFetchData && isViewPrepared) {
-            hasFetchData = true;
             lazyFetchDataIfPrepared();
         }
     }

@@ -10,8 +10,8 @@ import com.shouxiu.rxjavaretrofit.api.HomeApi;
 import com.shouxiu.rxjavaretrofit.api.HomeCateList;
 import com.shouxiu.rxjavaretrofit.api.ParamsMapUtils;
 import com.shouxiu.rxjavaretrofit.base.BaseFragment;
-import com.shouxiu.rxjavaretrofit.mvp.home.contract.HomeCateListContract;
-import com.shouxiu.rxjavaretrofit.mvp.home.impl.HomeCateListPresenterImp;
+import com.shouxiu.rxjavaretrofit.mvp.home.contract.HomeCateListView;
+import com.shouxiu.rxjavaretrofit.mvp.home.impl.HomeCateListPresenter;
 import com.shouxiu.rxjavaretrofit.net.cache.XCCacheManager;
 import com.shouxiu.rxjavaretrofit.net.callback.RxSubscriber;
 import com.shouxiu.rxjavaretrofit.net.exception.ResponseThrowable;
@@ -33,7 +33,7 @@ import static com.shouxiu.rxjavaretrofit.api.NetWorkApi.getHomeCateList;
  * TODO
  */
 
-public class HomeFragment extends BaseFragment<HomeCateListContract.View, HomeCateListPresenterImp<HomeCateListContract.View>> implements HomeCateListContract.View {
+public class HomeFragment extends BaseFragment<HomeCateListView, HomeCateListPresenter> implements HomeCateListView {
 
     @BindView(R.id.sliding_tab)
     SlidingTabLayout slidingTab;
@@ -53,13 +53,13 @@ public class HomeFragment extends BaseFragment<HomeCateListContract.View, HomeCa
     }
 
     @Override
-    protected HomeCateListContract.View createView() {
+    protected HomeCateListView createView() {
         return this;
     }
 
     @Override
-    protected HomeCateListPresenterImp<HomeCateListContract.View> createPresenter() {
-        return new HomeCateListPresenterImp<>(getContext());
+    protected HomeCateListPresenter createPresenter() {
+        return new HomeCateListPresenter();
     }
 
     @Override

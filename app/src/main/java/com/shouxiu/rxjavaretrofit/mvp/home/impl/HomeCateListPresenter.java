@@ -4,8 +4,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.shouxiu.rxjavaretrofit.api.HomeCateList;
-import com.shouxiu.rxjavaretrofit.base.BaseView;
-import com.shouxiu.rxjavaretrofit.mvp.home.contract.HomeCateListContract;
+import com.shouxiu.rxjavaretrofit.base.BasePresenter;
+import com.shouxiu.rxjavaretrofit.mvp.home.contract.HomeCateListView;
 import com.shouxiu.rxjavaretrofit.mvp.home.model.HomeCateListModel;
 import com.shouxiu.rxjavaretrofit.net.cache.XCCacheManager;
 import com.shouxiu.rxjavaretrofit.net.callback.RxSubscriber;
@@ -23,15 +23,14 @@ import static com.shouxiu.rxjavaretrofit.api.NetWorkApi.getHomeCateList;
  * TODO
  */
 
-public class HomeCateListPresenterImp<V extends BaseView> extends HomeCateListContract.Presenter {
+public class HomeCateListPresenter extends BasePresenter<HomeCateListView> {
 
    private HomeCateListModel mHomeCateListModel;
 
-    public HomeCateListPresenterImp(Context context) {
+    public HomeCateListPresenter() {
         mHomeCateListModel = new HomeCateListModel();
     }
 
-    @Override
     public void getHomeCateList(Context context) {
         mHomeCateListModel.getHomeCateList(context).subscribe(
                 new RxSubscriber<List<HomeCateList>>() {     //订阅者响应类
@@ -49,16 +48,6 @@ public class HomeCateListPresenterImp<V extends BaseView> extends HomeCateListCo
                         String text = GsonUtil.object2Json(homeCateLists);
                         XCCacheManager.getInstance(context).writeCache(getHomeCateList, text);
                         getView().getHomeAllList(homeCateLists);
-//                        mTitles = new String[homeCateLists.size() + 1];
-//                        mTitles[0] = "推荐";
-//                        for (int i = 0; i < homeCateLists.size(); i++) {
-//                            mTitles[i + 1] = homeCateLists.get(i).getTitle();
-//                        }
-//                        viewpager.setOffscreenPageLimit(homeCateLists.size());
-//                        mAdapter = new HomeAllListAdapter(getChildFragmentManager(), homeCateLists, mTitles);
-//                        viewpager.setAdapter(mAdapter);
-//                        slidingTab.setViewPager(viewpager, mTitles);
-//                        showContentView();
                     }
 
                     @Override

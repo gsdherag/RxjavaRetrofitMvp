@@ -5,7 +5,7 @@ import android.content.Context;
 import com.shouxiu.rxjavaretrofit.api.HomeApi;
 import com.shouxiu.rxjavaretrofit.api.HomeCateList;
 import com.shouxiu.rxjavaretrofit.api.ParamsMapUtils;
-import com.shouxiu.rxjavaretrofit.mvp.home.contract.HomeCateListContract;
+import com.shouxiu.rxjavaretrofit.base.BaseModel;
 import com.shouxiu.rxjavaretrofit.net.http.HttpUtils;
 import com.shouxiu.rxjavaretrofit.net.transformer.DefaultTransformer;
 
@@ -19,8 +19,8 @@ import io.reactivex.Observable;
  * TODO
  */
 
-public class HomeCateListModel implements HomeCateListContract.Model {
-    @Override
+public class HomeCateListModel implements BaseModel {
+
     public Observable getHomeCateList(Context context) {
         return  HttpUtils.getInstance(context)
                 .getRetrofitClient()
