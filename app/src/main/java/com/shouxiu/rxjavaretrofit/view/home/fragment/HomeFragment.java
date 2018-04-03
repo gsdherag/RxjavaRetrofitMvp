@@ -1,4 +1,4 @@
-package com.shouxiu.rxjavaretrofit.fragment;
+package com.shouxiu.rxjavaretrofit.view.home.fragment;
 
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -10,8 +10,8 @@ import com.shouxiu.rxjavaretrofit.api.HomeApi;
 import com.shouxiu.rxjavaretrofit.api.HomeCateList;
 import com.shouxiu.rxjavaretrofit.api.ParamsMapUtils;
 import com.shouxiu.rxjavaretrofit.base.BaseFragment;
-import com.shouxiu.rxjavaretrofit.base.BasePresenter;
-import com.shouxiu.rxjavaretrofit.base.BaseView;
+import com.shouxiu.rxjavaretrofit.mvp.home.contract.HomeCateListContract;
+import com.shouxiu.rxjavaretrofit.mvp.home.impl.HomeCateListPresenterImp;
 import com.shouxiu.rxjavaretrofit.net.cache.XCCacheManager;
 import com.shouxiu.rxjavaretrofit.net.callback.RxSubscriber;
 import com.shouxiu.rxjavaretrofit.net.exception.ResponseThrowable;
@@ -33,7 +33,7 @@ import static com.shouxiu.rxjavaretrofit.api.NetWorkApi.getHomeCateList;
  * TODO
  */
 
-public class HomeFragment extends BaseFragment<BaseView, BasePresenter<BaseView>> implements BaseView {
+public class HomeFragment extends BaseFragment<HomeCateListContract.View, HomeCateListPresenterImp<HomeCateListContract.View>> implements HomeCateListContract.View {
 
     @BindView(R.id.sliding_tab)
     SlidingTabLayout slidingTab;
@@ -53,18 +53,18 @@ public class HomeFragment extends BaseFragment<BaseView, BasePresenter<BaseView>
     }
 
     @Override
-    protected BaseView createView() {
+    protected HomeCateListContract.View createView() {
         return this;
     }
 
     @Override
-    protected BasePresenter<BaseView> createPresenter() {
-        return new BasePresenter();
+    protected HomeCateListPresenterImp<HomeCateListContract.View> createPresenter() {
+        return new HomeCateListPresenterImp<>(getContext());
     }
 
     @Override
     protected void lazyFetchData() {
-        getHomeCateList();
+        getPresenter().getHomeCateList(getContext());
     }
 
 
@@ -106,5 +106,24 @@ public class HomeFragment extends BaseFragment<BaseView, BasePresenter<BaseView>
                         showError();
                     }
                 });
+    }
+
+    @Override
+    public void showErrorWithStatus(String msg) {
+        showError();
+    }
+
+    @Override
+    public void getHomeAllList(List<HomeCateList> cateLists) {
+        mTitles = new String[cateLists.size() + 1];
+        mTitles[0] = "推荐";
+        for (int i = 0; i < cateLists.size(); i++) {
+            mTitles[i + 1] = cateLists.get(i).getTitle();
+        }
+        viewpager.setOffscreenPageLimit(cateLists.size());
+        mAdapter = new HomeAllListAdapter(getChildFragmentManager(), cateLists, mTitles);
+        viewpager.setAdapter(mAdapter);
+        slidingTab.setViewPager(viewpager, mTitles);
+        showContentView();
     }
 }

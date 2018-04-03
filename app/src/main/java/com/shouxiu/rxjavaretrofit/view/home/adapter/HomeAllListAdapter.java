@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.shouxiu.rxjavaretrofit.api.HomeCateList;
-import com.shouxiu.rxjavaretrofit.fragment.LiveFragment;
+import com.shouxiu.rxjavaretrofit.view.home.fragment.LiveFragment;
 
 import java.util.List;
 

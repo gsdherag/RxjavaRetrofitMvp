@@ -6,11 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
-import com.shouxiu.rxjavaretrofit.fragment.FollowFragment;
-import com.shouxiu.rxjavaretrofit.fragment.HomeFragment;
-import com.shouxiu.rxjavaretrofit.fragment.LiveFragment;
-import com.shouxiu.rxjavaretrofit.fragment.UserFragment;
-import com.shouxiu.rxjavaretrofit.fragment.VideoFragment;
+import com.shouxiu.rxjavaretrofit.view.home.fragment.FollowFragment;
+import com.shouxiu.rxjavaretrofit.view.home.fragment.HomeFragment;
+import com.shouxiu.rxjavaretrofit.view.home.fragment.LiveFragment;
+import com.shouxiu.rxjavaretrofit.view.home.fragment.UserFragment;
+import com.shouxiu.rxjavaretrofit.view.home.fragment.VideoFragment;
 import com.shouxiu.rxjavaretrofit.ui.NavigateTabBar;
 
 import butterknife.BindView;

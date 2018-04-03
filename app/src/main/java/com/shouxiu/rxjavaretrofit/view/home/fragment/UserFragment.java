@@ -1,4 +1,4 @@
-package com.shouxiu.rxjavaretrofit.fragment;
+package com.shouxiu.rxjavaretrofit.view.home.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,7 +15,7 @@ import com.shouxiu.rxjavaretrofit.R;
  * TODO
  */
 
-public class VideoFragment extends Fragment {
+public class UserFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

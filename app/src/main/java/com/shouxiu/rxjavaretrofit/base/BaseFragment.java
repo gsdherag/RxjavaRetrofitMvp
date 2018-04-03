@@ -94,20 +94,25 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V
     }
 
     /**
-     *  进行懒加载
+     * 进行懒加载
      */
     private void lazyFetchDataIfPrepared() {
         // 用户可见fragment && 没有加载过数据 && 视图已经准备完毕
         if (getUserVisibleHint() && !hasFetchData && isViewPrepared) {
             hasFetchData = true;
-            lazyFetchData();
+            if (presenter != null) {
+                lazyFetchData();
+            } else {
+                hasFetchData = false;
+            }
         }
 
     }
+
     /**
      * 懒加载的方式获取数据，仅在满足fragment可见和视图已经准备好的时候调用一次
      */
-    protected abstract void lazyFetchData() ;
+    protected abstract void lazyFetchData();
 
     protected abstract int getLayoutId();
 
@@ -123,15 +128,15 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mLlProgressBar =  getView().findViewById(R.id.ll_progress_bar);
-        ImageView img =  getView().findViewById(R.id.img_progress);
+        mLlProgressBar = getView().findViewById(R.id.ll_progress_bar);
+        ImageView img = getView().findViewById(R.id.img_progress);
         // 加载动画
         mAnimationDawable = (AnimationDrawable) img.getDrawable();
         // 默认进入页面就开启动画
         if (!mAnimationDawable.isRunning()) {
             mAnimationDawable.start();
         }
-        mLlErrorRefresh =  getView().findViewById(R.id.ll_error_refresh);
+        mLlErrorRefresh = getView().findViewById(R.id.ll_error_refresh);
         // 点击加载失败布局
         mLlErrorRefresh.setOnClickListener(new PerfectClickListener() {
             @Override
@@ -160,6 +165,10 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V
         //绑定
         this.presenter.attachView(this.view);
 
+        if (getUserVisibleHint() && !hasFetchData && isViewPrepared) {
+            hasFetchData = true;
+            lazyFetchDataIfPrepared();
+        }
     }
 
     protected void showLoading() {
