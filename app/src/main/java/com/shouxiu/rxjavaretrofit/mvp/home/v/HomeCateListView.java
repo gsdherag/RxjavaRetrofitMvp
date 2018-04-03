@@ -1,4 +1,4 @@
-package com.shouxiu.rxjavaretrofit.mvp.home.contract;
+package com.shouxiu.rxjavaretrofit.mvp.home.v;
 
 import com.shouxiu.rxjavaretrofit.api.HomeCateList;
 import com.shouxiu.rxjavaretrofit.base.BaseView;

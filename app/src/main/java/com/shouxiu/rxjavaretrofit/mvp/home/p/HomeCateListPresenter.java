@@ -1,12 +1,12 @@
-package com.shouxiu.rxjavaretrofit.mvp.home.impl;
+package com.shouxiu.rxjavaretrofit.mvp.home.p;
 
 import android.content.Context;
 import android.widget.Toast;
 
 import com.shouxiu.rxjavaretrofit.api.HomeCateList;
 import com.shouxiu.rxjavaretrofit.base.BasePresenter;
-import com.shouxiu.rxjavaretrofit.mvp.home.contract.HomeCateListView;
-import com.shouxiu.rxjavaretrofit.mvp.home.model.HomeCateListModel;
+import com.shouxiu.rxjavaretrofit.mvp.home.v.HomeCateListView;
+import com.shouxiu.rxjavaretrofit.mvp.home.m.HomeCateListModel;
 import com.shouxiu.rxjavaretrofit.net.cache.XCCacheManager;
 import com.shouxiu.rxjavaretrofit.net.callback.RxSubscriber;
 import com.shouxiu.rxjavaretrofit.net.exception.ResponseThrowable;

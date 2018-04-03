@@ -1,4 +1,4 @@
-package com.shouxiu.rxjavaretrofit.mvp.home.model;
+package com.shouxiu.rxjavaretrofit.mvp.home.m;
 
 import android.content.Context;
 
