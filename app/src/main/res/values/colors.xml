@@ -9,4 +9,10 @@
     <!--TabBar 字体颜色-->
     <color name="comui_tab_text_color">#929292</color>
     <color name="comui_tab_select_color">#FD9835</color>
+
+    <!--tab标签栏文字的颜色-->
+    <color name="colorTabText">#585858</color>
+
+    <!--页面背景的颜色-->
+    <color name="colorPageBg">#F1F3F4</color>
 </resources>

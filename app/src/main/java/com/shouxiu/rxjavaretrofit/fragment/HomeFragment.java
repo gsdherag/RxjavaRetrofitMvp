@@ -1,6 +1,7 @@
 package com.shouxiu.rxjavaretrofit.fragment;
 
 import android.support.v4.view.ViewPager;
+import android.view.View;
 import android.widget.Toast;
 
 import com.flyco.tablayout.SlidingTabLayout;
@@ -9,6 +10,8 @@ import com.shouxiu.rxjavaretrofit.api.HomeApi;
 import com.shouxiu.rxjavaretrofit.api.HomeCateList;
 import com.shouxiu.rxjavaretrofit.api.ParamsMapUtils;
 import com.shouxiu.rxjavaretrofit.base.BaseFragment;
+import com.shouxiu.rxjavaretrofit.base.BasePresenter;
+import com.shouxiu.rxjavaretrofit.base.BaseView;
 import com.shouxiu.rxjavaretrofit.net.cache.XCCacheManager;
 import com.shouxiu.rxjavaretrofit.net.callback.RxSubscriber;
 import com.shouxiu.rxjavaretrofit.net.exception.ResponseThrowable;
@@ -30,18 +33,33 @@ import static com.shouxiu.rxjavaretrofit.api.NetWorkApi.getHomeCateList;
  * TODO
  */
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment<BaseView, BasePresenter<BaseView>> implements BaseView {
+
     @BindView(R.id.sliding_tab)
     SlidingTabLayout slidingTab;
     @BindView(R.id.viewpager)
     ViewPager viewpager;
-
     private HomeAllListAdapter mAdapter;
     private String[] mTitles;
 
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_home_one;
+    }
+
+    @Override
+    protected void initView(View view) {
+
+    }
+
+    @Override
+    protected BaseView createView() {
+        return this;
+    }
+
+    @Override
+    protected BasePresenter<BaseView> createPresenter() {
+        return new BasePresenter();
     }
 
     @Override
@@ -79,11 +97,13 @@ public class HomeFragment extends BaseFragment {
                         mAdapter = new HomeAllListAdapter(getChildFragmentManager(), homeCateLists, mTitles);
                         viewpager.setAdapter(mAdapter);
                         slidingTab.setViewPager(viewpager, mTitles);
+                        showContentView();
                     }
 
                     @Override
                     public void onFail(ResponseThrowable t) {
                         Toast.makeText(getContext(), t.getErrorMsg(), Toast.LENGTH_SHORT).show();
+                        showError();
                     }
                 });
     }
