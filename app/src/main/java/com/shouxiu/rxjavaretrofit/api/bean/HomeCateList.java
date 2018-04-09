@@ -1,4 +1,4 @@
-package com.shouxiu.rxjavaretrofit.api;
+package com.shouxiu.rxjavaretrofit.api.bean;
 
 import java.io.Serializable;
 

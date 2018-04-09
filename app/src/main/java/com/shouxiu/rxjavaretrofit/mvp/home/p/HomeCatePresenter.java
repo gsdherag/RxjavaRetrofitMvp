@@ -3,10 +3,10 @@ package com.shouxiu.rxjavaretrofit.mvp.home.p;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.shouxiu.rxjavaretrofit.api.bean.HomeCateList;
+import com.shouxiu.rxjavaretrofit.api.bean.HomeRecommendHotCate;
 import com.shouxiu.rxjavaretrofit.base.BasePresenter;
-import com.shouxiu.rxjavaretrofit.mvp.home.v.HomeCateListView;
-import com.shouxiu.rxjavaretrofit.mvp.home.m.HomeCateListModel;
+import com.shouxiu.rxjavaretrofit.mvp.home.m.HomeCateModel;
+import com.shouxiu.rxjavaretrofit.mvp.home.v.HomeCateView;
 import com.shouxiu.rxjavaretrofit.net.cache.XCCacheManager;
 import com.shouxiu.rxjavaretrofit.net.callback.RxSubscriber;
 import com.shouxiu.rxjavaretrofit.net.exception.ResponseThrowable;
@@ -15,7 +15,7 @@ import com.shouxiu.rxjavaretrofit.utils.NetworkUtil;
 
 import java.util.List;
 
-import static com.shouxiu.rxjavaretrofit.api.NetWorkApi.getHomeCateList;
+import static com.shouxiu.rxjavaretrofit.api.NetWorkApi.getHomeCate;
 
 /**
  * @author yeping
@@ -23,31 +23,31 @@ import static com.shouxiu.rxjavaretrofit.api.NetWorkApi.getHomeCateList;
  * TODO
  */
 
-public class HomeCateListPresenter extends BasePresenter<HomeCateListView> {
+public class HomeCatePresenter extends BasePresenter<HomeCateView> {
 
-   private HomeCateListModel mHomeCateListModel;
+    private HomeCateModel mHomeCateModel;
 
-    public HomeCateListPresenter() {
-        mHomeCateListModel = new HomeCateListModel();
+    public HomeCatePresenter() {
+        mHomeCateModel = new HomeCateModel();
     }
 
-    public void getHomeCateList(Context context) {
-        mHomeCateListModel.getHomeCateList(context).subscribe(
-                new RxSubscriber<List<HomeCateList>>() {     //订阅者响应类
+    public void getHomeCate(Context context, String identification) {
+        mHomeCateModel.getHomeCate(context, identification).subscribe(
+                new RxSubscriber<List<HomeRecommendHotCate>>() {     //订阅者响应类
 
                     @Override
                     protected String prepareCache() {
                         if (!NetworkUtil.isNetworkAvailable(context)) {
-                            return XCCacheManager.getInstance(context).readCache(getHomeCateList);
+                            return XCCacheManager.getInstance(context).readCache(getHomeCate);
                         }
                         return null;
                     }
 
                     @Override
-                    public void onSuccess(List<HomeCateList> homeCateLists) {
+                    public void onSuccess(List<HomeRecommendHotCate> homeCateLists) {
                         String text = GsonUtil.object2Json(homeCateLists);
-                        XCCacheManager.getInstance(context).writeCache(getHomeCateList, text);
-                        getView().getHomeAllList(homeCateLists);
+                        XCCacheManager.getInstance(context).writeCache(getHomeCate, text);
+                        getView().getOtherList(homeCateLists);
                     }
 
                     @Override

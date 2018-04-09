@@ -7,7 +7,7 @@ import android.widget.Toast;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.shouxiu.rxjavaretrofit.R;
 import com.shouxiu.rxjavaretrofit.api.HomeApi;
-import com.shouxiu.rxjavaretrofit.api.HomeCateList;
+import com.shouxiu.rxjavaretrofit.api.bean.HomeCateList;
 import com.shouxiu.rxjavaretrofit.api.ParamsMapUtils;
 import com.shouxiu.rxjavaretrofit.base.BaseFragment;
 import com.shouxiu.rxjavaretrofit.mvp.home.v.HomeCateListView;

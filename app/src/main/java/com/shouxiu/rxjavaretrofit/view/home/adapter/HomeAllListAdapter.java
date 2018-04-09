@@ -4,8 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.shouxiu.rxjavaretrofit.api.HomeCateList;
-import com.shouxiu.rxjavaretrofit.view.home.fragment.LiveFragment;
+import com.shouxiu.rxjavaretrofit.api.bean.HomeCateList;
+import com.shouxiu.rxjavaretrofit.view.home.fragment.OtherHomeFragment;
+import com.shouxiu.rxjavaretrofit.view.home.fragment.RecommendHomeFragment;
 
 import java.util.List;
 
@@ -18,32 +19,32 @@ import java.util.List;
 public class HomeAllListAdapter extends FragmentStatePagerAdapter {
 
     private List<HomeCateList> mHomeCateLists;
-    private String[] mTiltle;
+    private String[] mTitle;
     private FragmentManager mFragmentManager;
 
     public HomeAllListAdapter(FragmentManager fm, List<HomeCateList> homeCateLists, String[] title) {
         super(fm);
         this.mFragmentManager = fm;
         this.mHomeCateLists = homeCateLists;
-        this.mTiltle = title;
+        this.mTitle = title;
     }
 
     @Override
     public int getCount() {
-        return mTiltle.length;
+        return mTitle.length;
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return mTiltle[position];
+        return mTitle[position];
     }
 
     @Override
     public Fragment getItem(int position) {
         if (position == 0) {
-            return new LiveFragment();
+            return new RecommendHomeFragment();
         }
-        LiveFragment otherHomeFragment = new LiveFragment();
+        OtherHomeFragment otherHomeFragment = OtherHomeFragment.getInstance(mHomeCateLists.get(position - 1), position);
         return otherHomeFragment;
     }
 }

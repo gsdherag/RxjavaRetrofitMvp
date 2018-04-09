@@ -3,8 +3,8 @@ package com.shouxiu.rxjavaretrofit.mvp.home.m;
 import android.content.Context;
 
 import com.shouxiu.rxjavaretrofit.api.HomeApi;
-import com.shouxiu.rxjavaretrofit.api.bean.HomeCateList;
 import com.shouxiu.rxjavaretrofit.api.ParamsMapUtils;
+import com.shouxiu.rxjavaretrofit.api.bean.HomeRecommendHotCate;
 import com.shouxiu.rxjavaretrofit.base.BaseModel;
 import com.shouxiu.rxjavaretrofit.net.http.HttpUtils;
 import com.shouxiu.rxjavaretrofit.net.transformer.DefaultTransformer;
@@ -19,13 +19,14 @@ import io.reactivex.Observable;
  * TODO
  */
 
-public class HomeCateListModel implements BaseModel {
+public class HomeCateModel implements BaseModel {
 
-    public Observable getHomeCateList(Context context) {
-        return  HttpUtils.getInstance(context)
+    public Observable<List<HomeRecommendHotCate>> getHomeCate(Context context, String identification) {
+        return HttpUtils.getInstance(context)
                 .getRetrofitClient()
                 .builder(HomeApi.class)
-                .getHomeCateList(ParamsMapUtils.getDefaultParams())
-                .compose(new DefaultTransformer<List<HomeCateList>>());  //预处理错误信息;
+                .getHomeCate(ParamsMapUtils.getHomeCate(identification))
+                //               进行预处理
+                .compose(new DefaultTransformer<List<HomeRecommendHotCate>>());
     }
 }

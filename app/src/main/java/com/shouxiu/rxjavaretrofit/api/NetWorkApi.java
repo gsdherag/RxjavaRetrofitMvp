@@ -11,4 +11,6 @@ public class NetWorkApi {
     public static String baseUrl = "http://capi.douyucdn.cn";
     //     首页列表
     public static final String getHomeCateList = "/api/homeCate/getCateList";
+    //     列表详情
+    public static final String getHomeCate = "/api/homeCate/getHotRoom";
 }
