@@ -15,4 +15,7 @@
 
     <!--页面背景的颜色-->
     <color name="colorPageBg">#F1F3F4</color>
+
+    <!--播放器style-->
+    <color name="control_bar_bg">#e0222222</color>
 </resources>

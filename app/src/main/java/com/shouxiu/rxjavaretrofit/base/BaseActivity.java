@@ -57,6 +57,12 @@ public abstract class BaseActivity<V extends BaseView, P extends BasePresenter<V
             //注解绑定
             mUnbinder = ButterKnife.bind(this);
         }
+
+        initView();
+    }
+
+    protected void initView() {
+
     }
 
     protected abstract int getLayoutId();

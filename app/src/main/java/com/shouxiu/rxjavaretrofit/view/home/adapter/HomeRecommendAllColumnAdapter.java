@@ -1,7 +1,9 @@
 package com.shouxiu.rxjavaretrofit.view.home.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,8 @@ import com.bumptech.glide.request.RequestOptions;
 import com.shouxiu.rxjavaretrofit.R;
 import com.shouxiu.rxjavaretrofit.api.bean.HomeRecommendHotCate;
 import com.shouxiu.rxjavaretrofit.utils.CalculationUtils;
+import com.shouxiu.rxjavaretrofit.view.home.activity.PcLiveVideoActivity;
+import com.shouxiu.rxjavaretrofit.view.home.activity.PhoneLiveVideoActivity;
 
 import java.util.List;
 
@@ -64,26 +68,26 @@ public class HomeRecommendAllColumnAdapter extends RecyclerView.Adapter<Recycler
             holder.rl_live_icon.setBackgroundResource(R.drawable.search_header_live_type_mobile);
         }
 
-        //        holder.itemView.setOnClickListener(new View.OnClickListener() {
-        //            @Override
-        //            public void onClick(View view) {
-        //                //                颜值栏目 竖屏播放
-        //                if (mRommListEntity.get(position).getCate_id().equals("201")) {
-        //                    Intent intent = new Intent(context, PhoneLiveVideoActivity.class);
-        //                    Bundle bundle = new Bundle();
-        //                    bundle.putString("Room_id", mRommListEntity.get(position).getRoom_id());
-        //                    bundle.putString("Img_Path", mRommListEntity.get(position).getVertical_src());
-        //                    intent.putExtras(bundle);
-        //                    context.startActivity(intent);
-        //                } else {
-        //                    Intent intent = new Intent(context, PcLiveVideoActivity.class);
-        //                    Bundle bundle = new Bundle();
-        //                    bundle.putString("Room_id", mRommListEntity.get(position).getRoom_id());
-        //                    intent.putExtras(bundle);
-        //                    context.startActivity(intent);
-        //                }
-        //            }
-        //        });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //                颜值栏目 竖屏播放
+                if (mRommListEntity.get(position).getCate_id().equals("201")) {
+                    Intent intent = new Intent(context, PhoneLiveVideoActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Room_id", mRommListEntity.get(position).getRoom_id());
+                    bundle.putString("Img_Path", mRommListEntity.get(position).getVertical_src());
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                } else {
+                    Intent intent = new Intent(context, PcLiveVideoActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("Room_id", mRommListEntity.get(position).getRoom_id());
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override

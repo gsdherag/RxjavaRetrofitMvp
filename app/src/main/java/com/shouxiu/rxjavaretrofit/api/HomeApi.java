@@ -2,6 +2,7 @@ package com.shouxiu.rxjavaretrofit.api;
 
 import com.shouxiu.rxjavaretrofit.api.bean.HomeCateList;
 import com.shouxiu.rxjavaretrofit.api.bean.HomeRecommendHotCate;
+import com.shouxiu.rxjavaretrofit.api.bean.TempLiveVideoInfo;
 import com.shouxiu.rxjavaretrofit.net.response.HttpResponse;
 
 import java.util.List;
@@ -9,10 +10,12 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 import static com.shouxiu.rxjavaretrofit.api.NetWorkApi.getHomeCate;
 import static com.shouxiu.rxjavaretrofit.api.NetWorkApi.getHomeCateList;
+import static com.shouxiu.rxjavaretrofit.api.NetWorkApi.getHomePhoneLiveVideo;
 
 /**
  * @author yeping
@@ -37,4 +40,10 @@ public interface HomeApi {
      */
     @GET(getHomeCate)
     Observable<HttpResponse<List<HomeRecommendHotCate>>> getHomeCate(@QueryMap Map<String, String> params);
+
+    /**
+     * 手机房间
+     */
+    @GET(getHomePhoneLiveVideo)
+    Observable<HttpResponse<TempLiveVideoInfo>> getModelPhoneLiveVideoInfo(@Query("roomId") String roomId);
 }

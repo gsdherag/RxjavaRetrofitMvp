@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <io.vov.vitamio.widget.VideoView
+                android:id="@+id/vm_videoview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <!--&lt;!&ndash;弹幕&ndash;&gt;-->
+            <!--<master.flame.danmaku.ui.widget.DanmakuView-->
+            <!--android:id="@+id/danmakuView"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_centerVertical="true"-->
+            <!--android:layout_marginTop="@dimen/wh300.0dimens300.0dp"-->
+
+            <!--/>-->
+            <!--控制层-->
+            <include layout="@layout/layout_phonelive_control"/>
+        </RelativeLayout>
+    </FrameLayout>
+</RelativeLayout>
