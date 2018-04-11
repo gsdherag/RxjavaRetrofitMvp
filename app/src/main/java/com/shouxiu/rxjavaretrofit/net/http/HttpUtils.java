@@ -179,6 +179,8 @@ public class HttpUtils {
             } else {
                 //加载网络数据
                 request = request.newBuilder()
+//                        .addHeader("Content-Type","application/json")
+//                        .addHeader("charset","UTF-8")
                         .cacheControl(CacheControl.FORCE_NETWORK)
                         .build();
             }

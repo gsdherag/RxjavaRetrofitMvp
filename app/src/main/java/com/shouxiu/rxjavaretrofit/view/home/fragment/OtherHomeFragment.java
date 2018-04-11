@@ -1,6 +1,7 @@
 package com.shouxiu.rxjavaretrofit.view.home.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.Unbinder;
 
 /**
  * @author yeping
@@ -31,9 +31,9 @@ public class OtherHomeFragment extends BaseFragment<HomeCateView, HomeCatePresen
     private static List<OtherHomeFragment> mOtherHomeFragments = new ArrayList<>();
     @BindView(R.id.other_content_recyclerView)
     RecyclerView otherContentRecyclerView;
-    Unbinder unbinder;
     private HomeCateList mHomeCate;
     private HomeOtherAdapter adapter;
+    private Handler mHandler = new Handler();
 
     @Override
     protected void lazyFetchData() {
@@ -41,7 +41,7 @@ public class OtherHomeFragment extends BaseFragment<HomeCateView, HomeCatePresen
         mHomeCate = (HomeCateList) arguments.getSerializable("homeCateList");
         String show_order = arguments.getString("type");
         if (show_order.equals(mHomeCate.getShow_order())) {
-            getPresenter().getHomeCate(getContext(), mHomeCate.getIdentification());
+            mHandler.postDelayed(() -> getPresenter().getHomeCate(getContext(), mHomeCate.getIdentification()), 500);
         }
     }
 
@@ -79,7 +79,7 @@ public class OtherHomeFragment extends BaseFragment<HomeCateView, HomeCatePresen
 
     @Override
     public void showErrorWithStatus(String msg) {
-
+        showError();
     }
 
     final RecyclerView.RecycledViewPool pool = new RecyclerView.RecycledViewPool() {
@@ -112,6 +112,7 @@ public class OtherHomeFragment extends BaseFragment<HomeCateView, HomeCatePresen
         pool.setMaxRecycledViews(adapter.getItemViewType(0), 500);
         otherContentRecyclerView.setRecycledViewPool(pool);
         otherContentRecyclerView.setAdapter(adapter);
+        showContentView();
     }
 
     @Override

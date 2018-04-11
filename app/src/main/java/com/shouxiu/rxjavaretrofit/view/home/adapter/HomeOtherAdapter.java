@@ -1,6 +1,7 @@
 package com.shouxiu.rxjavaretrofit.view.home.adapter;
 
 import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.shouxiu.rxjavaretrofit.R;
 import com.shouxiu.rxjavaretrofit.api.bean.HomeRecommendHotCate;
 
@@ -27,6 +29,7 @@ public class HomeOtherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     private Context context;
     //    全部栏目
     private List<HomeRecommendHotCate> mHomeRecommendHotCate;
+    private HomeRecommendAllColumnAdapter mAllColumnAdapter;
 
     public HomeOtherAdapter(Context context, List<HomeRecommendHotCate> mHomeRecommendHotCate) {
         this.context = context;
@@ -41,7 +44,12 @@ public class HomeOtherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ColumnViewHolder)holder).tv_column_name.setText(mHomeRecommendHotCate.get(position).getTag_name());
+        ColumnViewHolder columnViewHolder = (ColumnViewHolder) holder;
+        columnViewHolder.tv_column_name.setText(mHomeRecommendHotCate.get(position).getTag_name());
+        Glide.with(context).load(mHomeRecommendHotCate.get(position).getIcon_url()).into(columnViewHolder.img_column_icon);
+        columnViewHolder.rv_column_list.setLayoutManager(new GridLayoutManager(columnViewHolder.rv_column_list.getContext(), 2, GridLayoutManager.VERTICAL, false));
+        mAllColumnAdapter = new HomeRecommendAllColumnAdapter(columnViewHolder.rv_column_list.getContext(), mHomeRecommendHotCate.get(position).getRoom_list());
+        columnViewHolder.rv_column_list.setAdapter(mAllColumnAdapter);
     }
 
     @Override

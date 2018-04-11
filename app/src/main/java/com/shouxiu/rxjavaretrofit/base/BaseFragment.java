@@ -109,12 +109,12 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V
         if (getUserVisibleHint() && !hasFetchData && isViewPrepared) {
             hasFetchData = true;
             if (presenter != null) {
+                showLoading();
                 lazyFetchData();
             } else {
                 hasFetchData = false;
             }
         }
-
     }
 
     /**
@@ -188,8 +188,8 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V
             mAnimationDawable.start();
         }
 
-        if (mLlErrorRefresh.getVisibility() != View.GONE) {
-            mLlErrorRefresh.setVisibility(View.GONE);
+        if (mContainer.getVisibility() != View.GONE) {
+            mContainer.setVisibility(View.GONE);
         }
     }
 
@@ -207,8 +207,8 @@ public abstract class BaseFragment<V extends BaseView, P extends BasePresenter<V
         if (mLlErrorRefresh.getVisibility() != View.GONE) {
             mLlErrorRefresh.setVisibility(View.GONE);
         }
-        if (rootView.getVisibility() != View.VISIBLE) {
-            rootView.setVisibility(View.VISIBLE);
+        if (mContainer.getVisibility() != View.VISIBLE) {
+            mContainer.setVisibility(View.VISIBLE);
         }
     }
 
